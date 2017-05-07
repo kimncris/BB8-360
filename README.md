@@ -1,8 +1,13 @@
 BB8-360 from Padawan360
 ====
 
-FYI This is a work in progress buil upon the amazing work by DanF Danomite4047 and Supermanny
-Most of the info below is incorrect in as far as BB8 code but I will make updates as I get things working.  Kepping the info here now as a template for future entries only and as a guide to help me port over to BB8
+FYI This is a work in progress built upon the amazing work by DanF Danomite4047 and Supermanny
+Most of the info below is incorrect in as far as BB8 code but I will make updates as I get things working.  Keeping the below info here now as a template for future entries only and as a guide to help me port over to BB8
+
+Updates:
+
+
+Below is the original Readme info.
 
 ## Intro
 This is a control system for 1:1 scale remote control R2-D2 powered by Arduinos and controlled with an Xbox 360 Controller. It triggers lights, sounds, and controls foot drive and dome drive motors. It also supports I2C to trigger events in the dome lights or can be extended to interact with anything else that supports I2C
