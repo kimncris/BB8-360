@@ -11,6 +11,8 @@
      |  |_|    drive and control system   |_|  | 
      |          =====================          |
 
+
+  Based on the work done by MAnny Garcia. Modified by Cris Knight BB8BuildersClub
   Copyright (c) 2015 Manny Garcia, written for the R2Builders Group
 
   Based on the execellent Padawan360 library by Dan Kraus, which was influenced by DanF's 
@@ -22,7 +24,7 @@
   Microsoft Xbox 360 Controller
   Xbox 360 USB Wireless Reciver
   Sabertooth Motor Controller
-  Syren10 Motor Controller
+  Syren20 Motor Controller
   Sparkfun WAV Trigger
 
   Set Sabertooth 2x25/2x12 Dip Switches 1 and 2 Down, All Others Up (9600 baud)
@@ -30,16 +32,16 @@
     Mega         ST
     ====         ===========
     GND <------>  0v
-    Tx1 <------>  S2
-    Rx1 <------>  S1
+    Tx1 <------>  S1
+    Rx1 <------>  S2 (reversed in original r2 sketch)
 
-  For Syren10en Simple Serial Set Switchs 2 & 4 Down, All Others Up (9600 baud)
+  For Syren20en Simple Serial Set Switchs 1 & 2 Down, All Others Up (9600 baud) (different for packetized?)
 
     Mega         Syren
     ====         ===========
     GND <------>  0v
-    Tx2 <------>  S2
-    Rx2 <------>  S1
+    Tx2 16 <------>  S1
+    Rx2 17 <------>  S2 (reversed in original r2 sketch)
 
   Connect 2 wires from the UNO to the WAV Trigger's serial connector:
 
@@ -64,7 +66,7 @@
 #include "WavTrigger2.h"
 
 Sabertooth Sabertooth2xXX(128, Serial1);
-Sabertooth Syren10(128, Serial2);
+Sabertooth Syren20(128, Serial2);
 WavTrigger2 wTrig;
 
 char vol = DEFAULT_VOLUME;
@@ -112,7 +114,7 @@ void setup() {
   }
 
   Serial2.begin(DOMEBAUDRATE);
-  Syren10.setTimeout(900);
+  Syren20.setTimeout(900);
 
   Serial1.begin(STBAUDRATE);
   Sabertooth2xXX.setTimeout(900);
@@ -140,7 +142,7 @@ void loop() {
   if (!Xbox.XboxReceiverConnected || !Xbox.Xbox360Connected[0]) {
     Sabertooth2xXX.drive(0);
     Sabertooth2xXX.turn(0);
-    Syren10.motor(1, 0);
+    Syren20.motor(1, 0);
     firstLoadOnConnect = false;
     xboxBtnPressedSince = 0;
     return;
@@ -318,7 +320,7 @@ void loop() {
     } else if (Xbox.getButtonPress(R2, 0)) {
       play_sound_track(ANNOYED_SND);
     } else {
-      play_sound_track(random(PROC_SND_START, PROC_SND_END));
+      play_sound_track(random(LEIA_SND_START, PROC_SND_END));
     }
   }
 
@@ -408,8 +410,12 @@ void drive() {
   }
 
   // DOME DRIVE!
-  if (Xbox.getAnalogHat(LeftHatX, 0) > LEFT_HAT_X_NEUTRAL || Xbox.getAnalogHat(LeftHatX, 0) < -LEFT_HAT_X_NEUTRAL) {
-    domeThrottle = (map(Xbox.getAnalogHat(LeftHatX, 0), -32768, 32767, -DOMESPEED, DOMESPEED));
+ 
+  if (isDriveEnabled) {
+  //added drive lock for left stick too  THIS IS NEW
+  
+  if (Xbox.getAnalogHat(LeftHatY, 0) > LEFT_HAT_Y_NEUTRAL || Xbox.getAnalogHat(LeftHatY, 0) < -LEFT_HAT_Y_NEUTRAL) {
+    domeThrottle = (map(Xbox.getAnalogHat(LeftHatY, 0), -32768, 32767, -drivespeed, drivespeed)); //substituted drivespeed for DOMESPEED to hopefully allow speed control switches THIS IS NEW
     if (domeThrottle > -DOMEDEADZONERANGE && domeThrottle < DOMEDEADZONERANGE) {
       //stick in dead zone - don't spin dome
       domeThrottle = 0;
@@ -417,7 +423,9 @@ void drive() {
   } else {
     domeThrottle = 0;
   }
-  Syren10.motor(1, domeThrottle);
+  Syren20.motor(1, domeThrottle);
+  }
+
 }
 
 /**
@@ -451,9 +459,9 @@ void automation_mode() {
         play_sound_track(random(AUTO_SND_START, AUTO_SND_END));
       }
       if (automateAction < 4) {
-        Syren10.motor(1, turnDirection);
+        Syren20.motor(1, turnDirection);
         delay(750);
-        Syren10.motor(1, 0);
+        Syren20.motor(1, 0);
         if (turnDirection > 0) {
           turnDirection = -45;
         } else {

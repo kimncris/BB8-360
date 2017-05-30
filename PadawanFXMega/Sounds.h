@@ -10,32 +10,34 @@
 
 #define CONTROLLER_CONNECTED 1
 
-#define GEN_SND_START 1
+#define GEN_SND_START 1 //bb8 gen chit chat
 #define GEN_SND_END 25
 
-#define CHAT_SND_START 26
-#define CHAT_SND_END 44
+#define CHAT_SND_START 26 //bb8 oh sounds
+#define CHAT_SND_END 32
 
-#define HAPPY_SND_START 51
-#define HAPPY_SND_END 59
+#define HAPPY_SND_START 51 //happy sassy
+#define HAPPY_SND_END 58
 
-#define SAD_SND_START 75
+#define SAD_SND_START 75  //sad
 #define SAD_SND_END 80
 
-#define HUM_SND_START 130
-#define HUM_SND_END 156
+#define HUM_SND_START 130  //bb8 is purr
+#define HUM_SND_END 134
 
-#define LEIA_SND_START 161
-#define LEIA_SND_END 165
+#define SCREAM_SND_START 135 //scream
+#define SCREAM_SND_END 152
 
-#define SCREAM_SND_START 126
-#define SCREAM_SND_END 129
+#define LEIA_SND_START 161  //movie sounds
+#define LEIA_SND_END 166
 
-#define PROC_SND_START 240
-#define PROC_SND_END 245
+#define PROC_SND_START 165  //YEP
+#define PROC_SND_END 166
 
-#define WHISTLE_SND_START 101
-#define WHISTLE_SND_END 104
+#define WHISTLE_SND_START 101 //toy sounds
+#define WHISTLE_SND_END 105
+
+#define YEP 165
 
 #define AUTO_SND_START 1
 #define AUTO_SND_END 50
@@ -55,13 +57,14 @@
 #define R2THEME_MUS_START 176
 #define R2THEME_MUS_END 179
 
-#define DOODOO_SND 49
-#define OVERHERE_SND 50
-#define PATROL_SND 48
-#define ANNOYED_SND 75
+#define DOODOO_SND 161
+#define OVERHERE_SND 162
+#define PATROL_SND 163
+#define ANNOYED_SND 164
 
-#define IMPERIAL_SIREN 400
+#define IMPERIAL_SIREN 138
 
 #define BG_MUS_START 255
 
 #endif //SOUNDS_H
+

@@ -5,7 +5,7 @@
 // for packetized options are: 2400, 9600, 19200 and 38400. I think you need to pick one that works
 // and I think it varies across different firmware versions.
 // for simple serial use 9600
-const int DOMEBAUDRATE = 9600;
+const int DOMEBAUDRATE = 2400;
 
 // 9600 is the default baud rate for Sabertooth packet serial.
 const int STBAUDRATE = 9600;
@@ -19,11 +19,11 @@ const int RIGHT_HAT_Y_NEUTRAL = 7500;
 
 //************************** Set speed and turn speeds here************************************//
 //set these 3 to whatever speeds work for you. 0-stop, 127-full speed.
-const byte DRIVESPEED1 = 50;
-//Recommend beginner: 50 to 75, experienced: 100 to 127, I like 100.
-const byte DRIVESPEED2 = 100;
+const byte DRIVESPEED1 = 25;
+//Recommend beginner: 50 to 75, experienced: 100 to 127, I like 100.  9speeds changed for BB-8)
+const byte DRIVESPEED2 = 30;
 //Set to 0 if you only want 2 speeds.
-const byte DRIVESPEED3 = 127;
+const byte DRIVESPEED3 = 50;
 
 byte drivespeed = DRIVESPEED1;
 
